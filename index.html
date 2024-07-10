@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html,
+        body,
+        div {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            vertical-align: baseline;
+        }
+
+        #loading-bar-container {
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        #loading-bar {
+            height: 50vh;
+            width: 100%;
+            background-color: lightgreen;
+            transition: height 0.5s ease;
+        }
+    </style>
+    <title>Vertical Loading Bar</title>
+</head>
+
+<body>
+
+    <div id="loading-bar-container">
+        <div id="loading-bar"></div>
+    </div>
+
+    <script>
+        let progress = '';
+        const total = 1000;
+        function setLoadingBar(newProgress) {
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.style.height = ((newProgress / total) * 100).toString() + 'vh';
+        }
+        document.onkeypress = function (e) {
+            e = e || window.event;
+            // console.log(e.keyCode);
+            if (e.keyCode === 13 /* enter */) {
+                setLoadingBar(parseInt(progress, 10));
+                progress = '';
+                return;
+            }
+            if (e.keyCode === 101 /* e */) {
+                progress = '';
+                return;
+            }
+            if (e.keyCode < 48 || e.keyCode > 57 /* 0-9 */) {
+                return;
+            }
+            progress += (e.keyCode - 48).toString();
+        };
+    </script>
+
+</body>
+
+</html>
